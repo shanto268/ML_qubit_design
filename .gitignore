@@ -16,6 +16,7 @@ model_predict_qubit_TransmonCross_cap_matrix/scalers/*
 .ipynb_checkpoints/
 __pycache__/
 *.pyc
+dist/
 model_predict_cavity_claw_RouteMeander_eigenmode/.ipynb_checkpoints/
 model_predict_cavity_claw_RouteMeander_eigenmode/__pycache__/
 model_predict_cavity_claw_RouteMeander_eigenmode/*.pyc

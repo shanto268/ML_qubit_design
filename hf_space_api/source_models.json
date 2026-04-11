@@ -1,0 +1,168 @@
+{
+  "space": {
+    "repo_id": "SQuADDS/squadds-ml-inference-api",
+    "title": "SQuADDS ML Inference API",
+    "sdk": "docker",
+    "app_port": 7860,
+    "license": "mit",
+    "host": "https://squadds-squadds-ml-inference-api.hf.space",
+    "repo_url": "https://huggingface.co/spaces/SQuADDS/squadds-ml-inference-api"
+  },
+  "models": [
+    {
+      "id": "transmon_cross_hamiltonian_inverse",
+      "display_name": "TransmonCross Hamiltonian to Geometry",
+      "description": "Inverse model that predicts TransmonCross geometry parameters from target Hamiltonian values.",
+      "hf_model_repo_id": "SQuADDS/transmon-cross-hamiltonian-inverse",
+      "source_dir": "model_predict_qubit-TransmonCross-Hamiltonian_params",
+      "model_candidates": [
+        "model/best_inverse_model_surrogate_defined_loss.keras",
+        "model/best_keras_model_surrogate_defined_loss.keras",
+        "model/best_keras_model_one_hot_encoding.keras"
+      ],
+      "input_names_path": "X_names",
+      "input_names_format": "text_lines",
+      "output_names_path": "y_columns.npy",
+      "output_names_format": "npy",
+      "x_scaler_pattern": "scalers/scaler_X_{name}.save",
+      "y_scaler_pattern": "scalers/scaler_y_{name}_one_hot_encoding.save",
+      "copy_paths": [
+        "scalers"
+      ],
+      "input_units": {
+        "qubit_frequency_GHz": "GHz",
+        "anharmonicity_MHz": "MHz"
+      },
+      "output_units": {
+        "design_options.connection_pads.readout.claw_length": "m",
+        "design_options.connection_pads.readout.ground_spacing": "m",
+        "design_options.cross_length": "m"
+      },
+      "sample_request": {
+        "model_id": "transmon_cross_hamiltonian_inverse",
+        "inputs": {
+          "qubit_frequency_GHz": 4.85,
+          "anharmonicity_MHz": -205.0
+        },
+        "options": {
+          "include_scaled_outputs": false
+        }
+      },
+      "sample_response": {
+        "model_id": "transmon_cross_hamiltonian_inverse",
+        "display_name": "TransmonCross Hamiltonian to Geometry",
+        "predictions": [
+          {
+            "design_options.connection_pads.readout.claw_length": 0.00011072495544794947,
+            "design_options.connection_pads.readout.ground_spacing": 4.571595582092414e-06,
+            "design_options.cross_length": 0.0002005973074119538
+          }
+        ],
+        "metadata": {
+          "input_order": [
+            "qubit_frequency_GHz",
+            "anharmonicity_MHz"
+          ],
+          "output_order": [
+            "design_options.connection_pads.readout.claw_length",
+            "design_options.connection_pads.readout.ground_spacing",
+            "design_options.cross_length"
+          ],
+          "input_units": {
+            "qubit_frequency_GHz": "GHz",
+            "anharmonicity_MHz": "MHz"
+          },
+          "output_units": {
+            "design_options.connection_pads.readout.claw_length": "m",
+            "design_options.connection_pads.readout.ground_spacing": "m",
+            "design_options.cross_length": "m"
+          },
+          "num_predictions": 1
+        }
+      },
+      "tags": [
+        "inverse-design",
+        "transmon",
+        "hamiltonian"
+      ]
+    },
+    {
+      "id": "transmon_cross_cap_matrix_inverse",
+      "display_name": "TransmonCross Cap Matrix to Geometry",
+      "description": "Inverse model that predicts TransmonCross geometry parameters from cap matrix targets.",
+      "hf_model_repo_id": "SQuADDS/transmon-cross-cap-matrix-inverse",
+      "source_dir": "model_predict_qubit_TransmonCross_cap_matrix",
+      "model_candidates": [
+        "model/best_keras_model_one_hot_encoding.keras",
+        "model/best_keras_model_surrogate_defined_loss.keras",
+        "model/best_keras_model_model2_surrogate.keras"
+      ],
+      "input_names_path": "X_names",
+      "input_names_format": "text_lines",
+      "output_names_path": "y_columns.npy",
+      "output_names_format": "npy",
+      "x_scaler_pattern": "scalers/scaler_X_{name}.save",
+      "y_scaler_pattern": "scalers/scaler_y_{name}_one_hot_encoding.save",
+      "copy_paths": [
+        "scalers"
+      ],
+      "tags": [
+        "inverse-design",
+        "transmon",
+        "cap-matrix"
+      ]
+    },
+    {
+      "id": "coupler_ncap_cap_matrix_inverse",
+      "display_name": "NCap Coupler Cap Matrix to Geometry",
+      "description": "Inverse model that predicts NCap coupler geometry from cap matrix targets.",
+      "hf_model_repo_id": "SQuADDS/ncap-coupler-cap-matrix-inverse",
+      "source_dir": "model_predict_coupler_NCap_cap_matrix",
+      "model_candidates": [
+        "model/best_keras_model_one_hot_encoding.keras",
+        "model/best_keras_model_surrogate_defined_loss.keras",
+        "model/best_keras_model_model2_surrogate.keras"
+      ],
+      "input_names_path": "X_names",
+      "input_names_format": "text_lines",
+      "output_names_path": "y_columns.npy",
+      "output_names_format": "npy",
+      "x_scaler_pattern": "scalers/scaler_X_{name}.save",
+      "y_scaler_pattern": "scalers/scaler_y_{name}_one_hot_encoding.save",
+      "copy_paths": [
+        "scalers"
+      ],
+      "tags": [
+        "inverse-design",
+        "coupler",
+        "cap-matrix"
+      ]
+    },
+    {
+      "id": "cavity_claw_route_meander_inverse",
+      "display_name": "Cavity Claw RouteMeander Targets to Geometry",
+      "description": "Inverse model that predicts cavity claw RouteMeander geometry from target cavity frequency and kappa.",
+      "hf_model_repo_id": "SQuADDS/cavity-claw-route-meander-inverse",
+      "source_dir": "model_predict_cavity_claw_RouteMeander_eigenmode",
+      "model_candidates": [
+        "model/best_keras_model_one_hot_encoding.keras",
+        "model/best_keras_model_surrogate.keras",
+        "model/best_keras_model_model2_surrogate.keras"
+      ],
+      "input_names_path": "X_names",
+      "input_names_format": "text_lines",
+      "output_names_path": "y_columns.npy",
+      "output_names_format": "npy",
+      "x_scaler_pattern": "scalers/scaler_X_{name}.save",
+      "y_scaler_pattern": "scalers/scaler_y_{name}_one_hot_encoding.save",
+      "copy_paths": [
+        "scalers"
+      ],
+      "tags": [
+        "inverse-design",
+        "cavity",
+        "readout"
+      ]
+    }
+  ]
+}

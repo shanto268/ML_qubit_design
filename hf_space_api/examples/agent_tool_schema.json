@@ -1,0 +1,29 @@
+{
+  "name": "squadds_ml_predict",
+  "description": "Run inference against the SQuADDS ML Hugging Face Space to predict device geometry from target physics inputs.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "model_id": {
+        "type": "string",
+        "description": "Model identifier returned by GET /models."
+      },
+      "inputs": {
+        "description": "Single input object or batch of input objects using the exact input keys for the selected model."
+      },
+      "options": {
+        "type": "object",
+        "properties": {
+          "include_scaled_outputs": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "required": [
+      "model_id",
+      "inputs"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "model_id": "transmon_cross_hamiltonian_inverse",
+  "display_name": "TransmonCross Hamiltonian to Geometry",
+  "predictions": [
+    {
+      "design_options.connection_pads.readout.claw_length": 0.00011072495544794947,
+      "design_options.connection_pads.readout.ground_spacing": 4.571595582092414e-06,
+      "design_options.cross_length": 0.0002005973074119538
+    }
+  ],
+  "metadata": {
+    "input_order": [
+      "qubit_frequency_GHz",
+      "anharmonicity_MHz"
+    ],
+    "output_order": [
+      "design_options.connection_pads.readout.claw_length",
+      "design_options.connection_pads.readout.ground_spacing",
+      "design_options.cross_length"
+    ],
+    "input_units": {
+      "qubit_frequency_GHz": "GHz",
+      "anharmonicity_MHz": "MHz"
+    },
+    "output_units": {
+      "design_options.connection_pads.readout.claw_length": "m",
+      "design_options.connection_pads.readout.ground_spacing": "m",
+      "design_options.cross_length": "m"
+    },
+    "num_predictions": 1
+  }
+}

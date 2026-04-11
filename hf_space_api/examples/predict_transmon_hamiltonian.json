@@ -1,0 +1,10 @@
+{
+  "model_id": "transmon_cross_hamiltonian_inverse",
+  "inputs": {
+    "qubit_frequency_GHz": 4.85,
+    "anharmonicity_MHz": -205.0
+  },
+  "options": {
+    "include_scaled_outputs": false
+  }
+}

@@ -4,6 +4,8 @@
 ## Contents
 - [Features](#features)
 - [Contributions](#contributions)
+- [Acknowledgments](#acknowledgments)
+- [SQuADDS Dataset](#squadds-dataset)
 - [Quick Start](#quick-start)
   - [Environment Setup](#environment-setup)
   - [Fermilab Elastic Analysis Facility (EAF) setup](#fermilab-elastic-analysis-facility-eaf-setup)
@@ -14,6 +16,8 @@
 - [Within each folder there are three scripts](#within-each-folder-there-are-three-scripts)
 - [Completed](#completed)
 - [Desired Flow](#desired-flow)
+- [ML Deployment](#ml-deployment)
+- [Agent Integration](#agent-integration)
 
 ## Features
 This repo has tools/options to experiment with different configurations of a Multi-Layer Perceptron (MLP) for Qiskit Metal parameter prediction, when given a desired set of hamiltonian parameters. You can use the contained notebooks to explore the following options:
@@ -38,6 +42,50 @@ Please contact Olivia Seidel at **olivias@fnal.gov** with any questions or comme
 - Sara Sussman (Fermilab): Ideas Contributor
 - Giuseppe Di Guglielmo (Fermilab): ML expert and advice giver
 - Firas Abouzahr (Northwestern): Code tester/bug finder
+
+## Acknowledgments
+
+We gratefully acknowledge this collaboration for developing the model: Taylor Patti, Nicola Pancotti, Enectali Figueroa-Feliciano, Sara Sussman, Olivia Seidel, Firas Abouzahr, and Sadman Ahmed Shanto.
+
+Special thanks to Olivia Seidel and Firas Abouzahr, who were the primary trainers of the model.
+
+## SQuADDS Dataset
+
+This project is built around the public SQuADDS dataset hosted on Hugging Face.
+
+Relevant dataset resources:
+
+- SQuADDS dataset page: [https://huggingface.co/datasets/SQuADDS/SQuADDS_DB](https://huggingface.co/datasets/SQuADDS/SQuADDS_DB)
+- SQuADDS dataset file tree: [https://huggingface.co/datasets/SQuADDS/SQuADDS_DB/tree/main](https://huggingface.co/datasets/SQuADDS/SQuADDS_DB/tree/main)
+- SQuADDS organization datasets page: [https://huggingface.co/SQuADDS/datasets](https://huggingface.co/SQuADDS/datasets)
+- SQuADDS homepage: [https://lfl-lab.github.io/SQuADDS/](https://lfl-lab.github.io/SQuADDS/)
+- SQuADDS repository: [https://github.com/LFL-Lab/SQuADDS](https://github.com/LFL-Lab/SQuADDS)
+- SQuADDS paper: [https://doi.org/10.22331/q-2024-09-09-1465](https://doi.org/10.22331/q-2024-09-09-1465)
+- Hugging Face dataset DOI: `10.57967/hf/1582`
+
+The dataset page lists the SQuADDS data as MIT licensed JSON data on Hugging Face. The model folders in this repo are most directly connected to these SQuADDS subsets:
+
+- `cavity_claw-RouteMeander-eigenmode`
+- `coupler-NCap-cap_matrix`
+- `qubit-TransmonCross-cap_matrix`
+
+The `model_predict_qubit-TransmonCross-Hamiltonian_params` workflow is derived from the `qubit-TransmonCross-cap_matrix` dataset and then transformed into Hamiltonian-space targets using the SQuADDS tooling.
+
+If you use SQuADDS data or this ML workflow in research, please cite the SQuADDS paper:
+
+```bibtex
+@article{Shanto2024squaddsvalidated,
+  doi = {10.22331/q-2024-09-09-1465},
+  url = {https://doi.org/10.22331/q-2024-09-09-1465},
+  title = {{SQ}u{ADDS}: {A} validated design database and simulation workflow for superconducting qubit design},
+  author = {Shanto, Sadman and Kuo, Andre and Miyamoto, Clark and Zhang, Haimeng and Maurya, Vivek and Vlachos, Evangelos and Hecht, Malida and Shum, Chung Wa and Levenson-Falk, Eli},
+  journal = {{Quantum}},
+  volume = {8},
+  pages = {1465},
+  month = sep,
+  year = {2024}
+}
+```
 
 ## Quick Start
 
@@ -111,3 +159,27 @@ The following three folders contain scripts to use Machine Learning to predict Q
 Below is the desired flow for this project. All three models will be stitched together to predict a Qiskit Metal design when given a set of desired "Top_Level_X" Hamiltonian values. This will be done using the "X_2.0" values that are simulated from the 'y' values predicted with each of the 3 individual models:
 
 ![Desired Flow](desired_flow.png)
+
+## ML Deployment
+
+This repo now includes deployment tooling for publishing the trained models to the
+SQuADDS Hugging Face organization in two forms:
+
+1. A Docker Space with a stable HTTP API for agent and application use
+2. Per-model Hugging Face model repos that store the trained artifacts and a
+   machine-readable inference manifest
+
+Local build and publish entrypoints:
+
+```bash
+python3 scripts/build_hf_space_bundle.py
+python3 scripts/publish_hf_space.py
+
+python3 scripts/build_hf_model_repos.py
+python3 scripts/publish_hf_model_repos.py
+```
+
+## Agent Integration
+
+Agent-facing request contracts, deployment details, and workflow guidance live in
+[ML_AGENT_INTEGRATION.md](ML_AGENT_INTEGRATION.md).
